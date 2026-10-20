@@ -1,0 +1,18 @@
+services:
+  app:
+    image: ${IMAGE_NAME:?Set IMAGE_NAME}:${IMAGE_TAG:?Set IMAGE_TAG}
+    environment:
+      NODE_ENV: production
+      PORT: 3001
+      DATABASE_URL: ${DATABASE_URL:?Set DATABASE_URL}
+      WEB_ORIGIN: ${WEB_ORIGIN:?Set WEB_ORIGIN}
+    expose:
+      - "3001"
+    init: true
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/api/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 20s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
