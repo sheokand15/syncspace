@@ -86,5 +86,9 @@ $env:WEB_ORIGIN = "https://syncspace.example.com"
 docker compose -f docker-compose.prod.yml up -d
 ```
 
+## Free resume demo deployment
+
+The repository includes a Render Blueprint for a free Docker web service in Singapore. It expects `DATABASE_URL` from a Neon PostgreSQL project; use the direct connection URL for startup migrations, and enter it as a secret in Render during Blueprint setup. The app origin is read from Render's generated service URL. Free Render services sleep after 15 minutes idle and can take about a minute to wake, so this is suited to a portfolio demo rather than an always-on production service. Render's free Postgres is intentionally not used because it expires after 30 days. See [Render free-tier limits](https://render.com/docs/free) and [Neon connection setup](https://neon.com/docs/get-started/connect-neon).
+
 GitHub Actions workflows for checks and GHCR publication are included; they run after the repository is pushed to GitHub and package write permissions are available. No image has been published yet.
 
